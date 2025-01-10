@@ -26,22 +26,23 @@ body {
     grid-template-columns: repeat(18,1fr);
 }
 
-.head{
-    background-color: rgb(0, 59, 0);
+.snake.head {
+    background-color: rgb(141, 223, 17);
     border: solid;
-    border-color: green;
     border-radius: 25%;
+    size: 1.5rem;
 }
+
 .snake{
-    background-color: purple;
+    background-color: greenyellow;
     border: .25vmin solid white;
     border-radius: 12px;
 }
 .food{
-    background: linear-gradient(red,green);
+    background: yellow;
     border: .25vmin solid black;
     border-radius: 8px;
-    
+    size: 1.5rem;
 }
 
 #StartGame {
@@ -138,3 +139,28 @@ body {
     background: linear-gradient(to top, #56bf4c, #45a03e);
 }
 
+#music-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #56bf4c;
+    color: white;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover Effect */
+#music-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
