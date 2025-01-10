@@ -7,6 +7,8 @@ const musicsound = new Audio('music/music.mp3'); // Background music
 const scoreElement = document.querySelector('.Score'); // Display for current score
 const highScoreElement = document.querySelector('.highScore'); // Display for high score
 
+
+let isMusicPlaying = false;
 let highestScore = 0; // Track the highest score
 let speed = 7; // Game speed (frames per second)
 let lastPaintTime = 0; // Time tracker for game updates
@@ -25,6 +27,8 @@ let food = {
 // Main game loop
 function main(ctime) {
     window.requestAnimationFrame(main); // Request the next frame
+    playMusic()
+
     if ((ctime - lastPaintTime) / 1000 < 1 / speed) return; // Control game speed
     lastPaintTime = ctime; // Update last painted time
     gameEngine(); // Call the game logic
@@ -33,7 +37,8 @@ function main(ctime) {
 // Start the game
 function startGame() {
     window.requestAnimationFrame(main); // Begin the game loop
-    musicsound.play(); // Play background music
+    isMusicPlaying = true;
+    playMusic();
 }
 
 // Check if snake has collided
@@ -57,13 +62,15 @@ function gameEngine() {
     if (isCollide(snakeArr)) {
         // Handle game over
         gameOverSound.play();
-        musicsound.pause();
+        playMusic();
         inputDir = {x: 0, y: 0}; // Stop the snake
+        musicsound.pause();
         alert("Game Over! Press any Arrow Key to start"); // Show game over alert
+        musicsound.play();
         score = 0; // Reset score
         scoreElement.textContent = 'Score: ' + score.toString(); // Update score display
         snakeArr = [{x: 13, y: 15}]; // Reset snake position
-        musicsound.play(); // Restart background music
+        playMusic();
     }
 
     // Check if snake eats the food
@@ -113,6 +120,25 @@ function gameEngine() {
     foodElement.classList.add('food');
     board.appendChild(foodElement); // Append the food element to the board
 }
+
+// Music Toggle Function
+function toggleMusic() {
+    if (isMusicPlaying) {
+        musicsound.pause();
+        isMusicPlaying = false;
+        document.getElementById('music-toggle').textContent = '🔇';
+    } else {
+        musicsound.play();
+        isMusicPlaying = true;
+        document.getElementById('music-toggle').textContent = '🎵';
+    }
+}
+
+function playMusic() {
+    if (isMusicPlaying) musicsound.play();
+    else musicsound.pause();
+}
+
 
 // Main logic starts here
 
